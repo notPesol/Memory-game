@@ -1,0 +1,14 @@
+.grid{
+    display: flex;
+    flex-wrap: wrap;
+    width: 400px;
+    height: 300px;
+}
+
+#reset{
+    margin: 10px 170px;
+    padding: 5px;
+    background: inherit;
+    border-radius: 4px;
+    cursor: pointer;
+}
