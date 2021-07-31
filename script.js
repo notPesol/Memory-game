@@ -52,11 +52,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const grid = document.querySelector('.grid');
     const resultDisplay = document.querySelector('#result');
+    const timeDisplay = document.querySelector('#time');
     const resetBtn = document.querySelector('#reset');
 
     let cardsChosen = [];
     let cardsChosenId = [];
     const cardsWon = [];
+
+    let time = 0;
+    let timeId;
 
     // create board
     function createBoard() {
@@ -71,6 +75,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
             grid.appendChild(card);
         }
+
+        timeId = setInterval(()=>{
+            time +=1;
+            timeDisplay.textContent = time + ' seconds';
+        },1000);
     }
 
     // flip a card
@@ -100,7 +109,6 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         else if (cardsChosen[0] === cardsChosen[1]) {
             alert('You found match');
-            console.log(cardsChosen[0]);
             cards[optionOneId].setAttribute('src', cardsChosen[0]);
             cards[optionTwoId].setAttribute('src', cardsChosen[0]);
             cardsWon.push(cardsChosen);
@@ -116,6 +124,7 @@ window.addEventListener('DOMContentLoaded', () => {
         resultDisplay.textContent = cardsWon.length;
 
         if (cardsWon.length === (cards.length / 2)) {
+            clearInterval(timeId);
             resultDisplay.textContent = 'Congratulations! You found them all!';
             setTimeout(resetBoard, 10000);
         }
@@ -123,6 +132,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // reset
     function resetBoard() {
+        time = 0;
+        clearInterval(timeId);
         while (grid.children.length) {
             console.log(grid.children[0]);
             grid.removeChild(grid.children[0]);
